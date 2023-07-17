@@ -1,6 +1,9 @@
 {
-  "name": "weather-checker-package",
-  "version": "1.0.0",
+  "name": "@robinblaauw/weather-checker",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/robinblaauw"
+  },
+  "version": "1.0.1",
   "description": "",
   "scripts": {
     "test": "jest",
@@ -57,5 +60,8 @@
   "files": [
     "dist"
   ],
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "rollup-plugin-sass": "^1.12.19"
+  }
 }
