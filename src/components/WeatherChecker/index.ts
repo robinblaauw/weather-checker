@@ -1,1 +1,1 @@
-export { default } from "./WeatherChecker";
+export { WeatherChecker } from "./WeatherChecker";

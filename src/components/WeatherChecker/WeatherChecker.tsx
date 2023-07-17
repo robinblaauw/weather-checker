@@ -1,6 +1,11 @@
 import React from "react";
-import "./WeatherChecker.css";
+import "./WeatherChecker.scss";
 
 export const WeatherChecker = () => {
-  return <div className="weather-checker">WeatherChecker</div>;
+  return (
+    <div className="weather-checker">
+      WeatherChecker
+      <button className="weather-checker--button">Test</button>
+    </div>
+  );
 };
