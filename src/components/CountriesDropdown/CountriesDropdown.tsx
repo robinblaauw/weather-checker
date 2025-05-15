@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "../Dropdown/Dropdown";
-import { extractPropertyValues } from "../../../src/lib/utils";
+import { transformCountries } from "../../../src/lib/utils";
 
 type CountriesDropdownProps = {
-  setCountry: (val: string) => void;
+  setCountry: (val: { name: string; code: string }) => void;
 };
 
 export const CountriesDropdown = ({ setCountry }: CountriesDropdownProps) => {
   const [countries, setCountries] = useState<any[]>([]);
 
-  const setCountryHandler = (val: string) => {
+  const setCountryHandler = (val: { name: string; code: string }) => {
     setCountry(val);
   };
 
@@ -25,12 +25,13 @@ export const CountriesDropdown = ({ setCountry }: CountriesDropdownProps) => {
     getCitiesData();
   }, []);
 
-  const contriesArray = extractPropertyValues(countries, "name");
+  const countriesArr = transformCountries(countries);
+
   return (
     <Dropdown
       setUpstreamValue={setCountryHandler}
       placeholder="Countries"
-      list={contriesArray}
+      list={countriesArr}
     />
   );
 };

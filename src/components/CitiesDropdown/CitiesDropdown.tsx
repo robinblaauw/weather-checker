@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "../Dropdown/Dropdown";
+import { newCitiesArray } from "../../../src/lib/utils";
 
 type CitiesDropdownProps = {
-  country?: string | undefined;
-  setCity: (val: string) => void;
+  country?: { name: string; code: string } | null;
+  setCity: (val: { name: string; code: string }) => void;
 };
 
 const CitiesDropdown = ({ country, setCity }: CitiesDropdownProps) => {
   const [cities, setCities] = useState<string[]>([]);
 
-  const passCityHandler = (val: string) => {
+  const passCityHandler = (val: { name: string; code: string }) => {
     setCity(val);
   };
 
@@ -25,7 +26,7 @@ const CitiesDropdown = ({ country, setCity }: CitiesDropdownProps) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ country: country }),
+          body: JSON.stringify({ country: country.name }),
         }
       );
       const citiesData = await citiesArray.json();
@@ -35,11 +36,13 @@ const CitiesDropdown = ({ country, setCity }: CitiesDropdownProps) => {
     getCitiesData();
   }, [country]);
 
+  const transformedCities = newCitiesArray(cities, country?.code!);
+
   return (
     <Dropdown
       setUpstreamValue={passCityHandler}
       placeholder="Cities"
-      list={cities}
+      list={transformedCities}
     />
   );
 };
