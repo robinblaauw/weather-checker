@@ -10,15 +10,22 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import WeatherByCity from "../WeatherByCity/WeatherByCity";
 
 export const WeatherChecker = () => {
-  const [currentCountry, setCurrentCountry] = useState<string>("");
-  const [currentCity, setCurrentCity] = useState<string>("");
+  const [currentCountry, setCurrentCountry] = useState<{
+    name: string;
+    code: string;
+  } | null>(null);
+  const [currentCity, setCurrentCity] = useState<{
+    name: string;
+    code: string;
+  } | null>(null);
 
-  const setCity = (val: string) => {
+  const setCity = (val: { name: string; code: string }) => {
     setCurrentCity(val);
   };
-  const setCountry = (val: string) => {
+  const setCountry = (val: { name: string; code: string }) => {
     setCurrentCountry(val);
   };
 
@@ -27,14 +34,23 @@ export const WeatherChecker = () => {
       <Card>
         <CardHeader>
           <CardTitle>Weather checker app</CardTitle>
-          <CardDescription>Card Description</CardDescription>
+          <CardDescription>
+            Look up current and forecast weather around the world.
+          </CardDescription>
+          <CardDescription>
+            <span className="italic">
+              Please note that not every city has current weather available.
+            </span>
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex gap-2">
             <CountriesDropdown setCountry={setCountry} />
             <Cities setCity={setCity} country={currentCountry} />
           </div>
-          <p>{currentCity}</p>
+          <div className="mt-4">
+            {currentCity?.name && <WeatherByCity city={currentCity} />}
+          </div>
         </CardContent>
       </Card>
     </div>
